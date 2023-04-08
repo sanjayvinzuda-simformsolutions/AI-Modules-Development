@@ -1,4 +1,4 @@
-require_relative 'lib/gpt_analysis'
+require_relative 'lib/gpt_analysis.rb'
 
 # Define the file types to analyze
 file_types = ['rb']
@@ -7,7 +7,7 @@ file_types = ['rb']
 declared_trivial = github.pr_title.include? "#trivial"
 
 # Analyze each modified file
-modified_files.each do |file|
+git.modified_files.each do |file|
   # Only analyze files with specified file types
   next unless file_types.include?(File.extname(file))
   # Read the file contents
