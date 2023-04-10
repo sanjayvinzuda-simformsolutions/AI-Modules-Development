@@ -6,8 +6,9 @@ file_types = ['rb', 'erb']
 # including in a project's CHANGELOG for example
 declared_trivial = github.pr_title.include? "#trivial"
 
+files_to_check = (git.modified_files + git.added_files).uniq
 # Analyze each modified file
-git.modified_files.each do |file|
+files_to_check.each do |file|
   # Only analyze files with specified file types
   next unless file_types.include?(File.extname(file))
   # Read the file contents
