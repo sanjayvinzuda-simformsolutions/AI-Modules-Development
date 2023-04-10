@@ -35,6 +35,6 @@ unless github.pr_body.include?('# Summary')
   fail message
 end
 
-if github.requested_reviewers.users.length == 0
+if github.pr_json["requested_reviewers"].empty?
   fail "The pull request doesn't include any code review requests. Please make sure to request code reviews from at least one team member."
 end
