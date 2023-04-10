@@ -16,7 +16,8 @@ files_to_check.each do |file|
   # Analyze the code using the GPT-based AI tool
   issues = analyze_code(code)
   # Display a warning message for any detected issues
-  message "Potential issues detected by GPT-based AI model:\n#{issues.join('\n')}"
+  puts "Potential issues detected by GPT-based AI model in #{file}:\n#{issues.join('\n')}"
+  message("Potential issues detected by GPT-based AI model in #{file}:\n#{issues.join('\n')}")
 end
 
 # Make it more obvious that a PR is a work in progress and shouldn't be merged yet
