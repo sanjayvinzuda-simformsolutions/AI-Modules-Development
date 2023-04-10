@@ -16,14 +16,14 @@ files_to_check.each do |file|
   # Analyze the code using the GPT-based AI tool
   issues = analyze_code(code)
   # Display a warning message for any detected issues
-  warn("Potential issues detected by GPT-based AI model:\n#{issues.join('\n')}")
+  message "Potential issues detected by GPT-based AI model:\n#{issues.join('\n')}"
 end
 
 # Make it more obvious that a PR is a work in progress and shouldn't be merged yet
-warn("PR is classed as Work in Progress") if github.pr_title.include? "[WIP]"
+warn "PR is classed as Work in Progress" if github.pr_title.include? "[WIP]"
 
 # Warn when there is a big PR
-warn("Big PR") if git.lines_of_code > 500
+warn("Big PR") if git.lines_of_code > 50
 
 # Don't let testing shortcuts get into master by accident
 fail("fdescribe left in tests") if `grep -r fdescribe specs/ `.length > 1
@@ -33,4 +33,8 @@ message = 'Please include a summary in your pull request description.'
 # Check if the pull request description includes a summary
 unless github.pr_body.include?('# Summary')
   fail message
+end
+
+if github.requested_reviewers.users.length == 0
+  fail "The pull request doesn't include any code review requests. Please make sure to request code reviews from at least one team member."
 end

@@ -11,5 +11,5 @@ def analyze_code(code_snippet)
     max_tokens: 2000
   })
   # Extract the list of potential issues from the response
-  response["choices"][0]["text"].split("\n")
+  response.dig("choices", 0, "text").split("\n")
 end
