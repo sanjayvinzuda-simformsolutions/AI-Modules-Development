@@ -2,7 +2,7 @@ require_relative '../config/environment'
 require "openai"
 
 def client
-  api_key = Rails.application.credentials.dig(:openAI, :open_ai_api_key) || ENV["OPENAI_API_KEY"]
+  api_key = Rails.application.credentials.dig(:openAI, :open_ai_api_key) || '${{ secrets.OPENAI_API_KEY }}'
   OpenAI::Client.new(access_token: api_key)
 end
 
