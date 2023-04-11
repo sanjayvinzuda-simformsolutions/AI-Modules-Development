@@ -3,7 +3,6 @@ require "openai"
 
 def client
   api_key = ENV['OPENAI_API_KEY'] || Rails.application.credentials.dig(:openAI, :open_ai_api_key) || '${{ secrets.OPENAI_API_KEY }}'
-  puts "api_key: #{api_key}"
   OpenAI::Client.new(access_token: api_key)
 end
 
@@ -17,7 +16,6 @@ def analyze_code(code_snippet)
     })
     # Extract the list of potential issues from the response
     result = response.dig("choices", 0, "text")
-    puts "#{result}"
     result.present? ? result.split("\n") : []
   rescue StandardError => e
     puts "Error occurred while analyzing code: #{e.message}"
