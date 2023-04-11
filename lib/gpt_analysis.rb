@@ -1,9 +1,13 @@
 require_relative '../config/environment'
 require "openai"
 
+def client
+  api_key = Rails.application.credentials.dig(:openAI, :open_ai_api_key) || ENV["OPENAI_API_KEY"]
+  OpenAI::Client.new(access_token: api_key)
+end
+
 def analyze_code(code_snippet)
   # Set up OpenAI API key
-  client = OpenAI::Client.new(access_token: Rails.application.credentials.dig(:openAI, :open_ai_api_key))
   
   # Pass the code snippet to the GPT-based AI model
   response = client.completions(parameters: {
