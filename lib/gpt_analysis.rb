@@ -16,6 +16,7 @@ def analyze_code(code_snippet)
     })
     # Extract the list of potential issues from the response
     result = response.dig("choices", 0, "text")
+    puts result
     result.present? ? result.split("\n") : []
   rescue StandardError => e
     puts "Error occurred while analyzing code: #{e.message}"
