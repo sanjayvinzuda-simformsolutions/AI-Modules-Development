@@ -1,3 +1,4 @@
+require_relative '../config/environment'
 require "openai"
 
 def analyze_code(code_snippet)
