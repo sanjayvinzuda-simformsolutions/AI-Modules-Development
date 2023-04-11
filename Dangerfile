@@ -14,6 +14,7 @@ git.modified_files.each do |file|
   code = File.read(file)
   # Analyze the code using the GPT-based AI tool
   issues = analyze_code(code)
+  message "#{issues}"
   if issues.present?
     # Display a warning message for any detected issues
     message "Potential issues detected by GPT-based AI model in #{file}:\n#{issues.join('\n')}"
