@@ -1,14 +1,13 @@
 require_relative 'lib/gpt_analysis.rb'
 
 # Define the file types to analyze
-file_types = ['.rb', '.erb']
+file_types = ['.rb', 'erb']
 # Sometimes it's a README fix, or something like that - which isn't relevant for
 # including in a project's CHANGELOG for example
 declared_trivial = github.pr_title.include? "#trivial"
 
-files_to_check = (git.modified_files + git.added_files).uniq
 # Analyze each modified file
-files_to_check.each do |file|
+git.modified_files.each do |file|
   # Only analyze files with specified file types
   next unless file_types.include?(File.extname(file))
   # Read the file contents

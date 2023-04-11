@@ -3,6 +3,7 @@ require "openai"
 
 def client
   api_key = Rails.application.credentials.dig(:openAI, :open_ai_api_key) || '${{ secrets.OPENAI_API_KEY }}'
+  puts '${{ secrets.OPENAI_API_KEY }}'
   OpenAI::Client.new(access_token: api_key)
 end
 
@@ -16,5 +17,9 @@ def analyze_code(code_snippet)
     max_tokens: 2000
   })
   # Extract the list of potential issues from the response
-  response.dig("choices", 0, "text").split("\n")
+  if response.dig("choices", 0, "text").present?
+    response.dig("choices", 0, "text").split("\n")
+  else
+    "No Potential Issues"
+  end
 end
