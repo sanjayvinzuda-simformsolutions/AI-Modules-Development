@@ -14,8 +14,10 @@ git.modified_files.each do |file|
   code = File.read(file)
   # Analyze the code using the GPT-based AI tool
   issues = analyze_code(code)
-  # Display a warning message for any detected issues
-  message "Potential issues detected by GPT-based AI model in #{file}:\n#{issues.join('\n')}"
+  if issues.present?
+    # Display a warning message for any detected issues
+    message "Potential issues detected by GPT-based AI model in #{file}:\n#{issues.join('\n')}"
+  end
 end
 
 # Make it more obvious that a PR is a work in progress and shouldn't be merged yet
