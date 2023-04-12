@@ -7,7 +7,7 @@ file_types = ['.rb', 'erb']
 # including in a project's CHANGELOG for example
 declared_trivial = github.pr_title.include? "#trivial"
 
-fetch_files = (git.added_files + git.modified_files).uniq
+fetch_files = (git.added_files + git.modified_files - %w[Dangerfile]).uniq
 # Analyze each modified file
 fetch_files.each do |file|
   # Only analyze files with specified file types
@@ -18,10 +18,13 @@ fetch_files.each do |file|
   issues = analyze_code(code)
   if issues.any?
     #   github.review.start
-    message("Potential issues detected by GPT-based AI model in <b>#{file}<\b>:\n", false, file)
+    # file_link = github.html_link(file)
+    # message()
+    github.review.start
     issues.each do |issue|
-      message("#{issue}", false, issue)
+      github.review.message("#{issue}", sticky: false, file: file)
     end
+    github.review.submit
   end
 end
 
