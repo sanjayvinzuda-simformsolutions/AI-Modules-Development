@@ -1,4 +1,5 @@
 require_relative 'lib/gpt_analysis.rb'
+require 'pry'
 
 # Define the file types to analyze
 file_types = ['.rb', 'erb']
@@ -6,17 +7,20 @@ file_types = ['.rb', 'erb']
 # including in a project's CHANGELOG for example
 declared_trivial = github.pr_title.include? "#trivial"
 
+fetch_files = (git.added_files + git.modified_files).uniq
 # Analyze each modified file
-git.modified_files.each do |file|
+fetch_files.each do |file|
   # Only analyze files with specified file types
   next unless file_types.include?(File.extname(file))
   # Read the file contents
   code = File.read(file)
   # Analyze the code using the GPT-based AI tool
   issues = analyze_code(code)
-  if issues.present?
-    # Display a warning message for any detected issues
-    message "Potential issues detected by GPT-based AI model in <b>#{file}<b>:\n #{issues.join('\n')}"
+  if issues.any?
+    message "Potential issues detected by GPT-based AI model in <b>#{file}<\b>:\n"
+    issues.each do |issue|
+      message "#{issue}"
+    end
   end
 end
 

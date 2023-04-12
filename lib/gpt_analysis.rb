@@ -12,11 +12,13 @@ def analyze_code(code_snippet)
     response = client.completions(parameters: {
       model: 'text-davinci-003',
       prompt: "Analyze the following code for potential issues:\n #{code_snippet}",
-      max_tokens: 2000
+      max_tokens: 2000,
+      n: 1,
+      stop: ['\n\n']
     })
     # Extract the list of potential issues from the response
     result = response.dig("choices", 0, "text")
-    result.present? ? result.split("\n") : []
+    result.present? ? result.split("\n").reject(&:blank?).map(&:strip) : []
   rescue StandardError => e
     puts "Error occurred while analyzing code: #{e.message}"
   end
