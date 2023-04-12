@@ -14,7 +14,7 @@ class TestCasesController < ApplicationController
   def generate_test_cases(code, language)
     prompt = get_prompt(code, language)
 
-    client = OpenAI::Client.new(access_token: "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")
+    client = OpenAI::Client.new(access_token: Rails.application.credentials.dig(:openAI, :open_ai_api_key))
     response = client.completions(
       parameters: {
         model: 'text-davinci-003',
