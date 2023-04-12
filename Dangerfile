@@ -17,12 +17,11 @@ fetch_files.each do |file|
   # Analyze the code using the GPT-based AI tool
   issues = analyze_code(code)
   if issues.any?
-    #   github.review.start
-    # file_link = github.html_link(file)
-    # message()
+    file_link = github.html_link(file)
     github.review.start
+    github.review.message("File", false, file: file_link)
     issues.each do |issue|
-      github.review.message("#{issue}", sticky: false, file: file)
+      github.review.warn("#{issue}", sticky: false)
     end
     github.review.submit
   end
@@ -32,7 +31,7 @@ end
 warn "PR is classed as Work in Progress" if github.pr_title.include? "[WIP]"
 
 # Warn when there is a big PR
-warn("Big PR") if git.lines_of_code > 50
+warn("Big PR") if git.lines_of_code > 500
 
 # Don't let testing shortcuts get into master by accident
 fail("fdescribe left in tests") if `grep -r fdescribe specs/ `.length > 1
