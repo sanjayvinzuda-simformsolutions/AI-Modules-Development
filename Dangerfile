@@ -17,9 +17,10 @@ fetch_files.each do |file|
   # Analyze the code using the GPT-based AI tool
   issues = analyze_code(code)
   if issues.any?
-    message "Potential issues detected by GPT-based AI model in <b>#{file}<\b>:\n"
+    #   github.review.start
+    message("Potential issues detected by GPT-based AI model in <b>#{file}<\b>:\n", false, file)
     issues.each do |issue|
-      message "#{issue}"
+      message("#{issue}", false, issue)
     end
   end
 end

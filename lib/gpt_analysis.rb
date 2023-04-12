@@ -11,7 +11,7 @@ def analyze_code(code_snippet)
     # Pass the code snippet to the GPT-based AI model
     response = client.completions(parameters: {
       model: 'text-davinci-003',
-      prompt: "Analyze the following code for potential issues:\n #{code_snippet}",
+      prompt: "Analyze the following code for potential issues or bugs:\n #{code_snippet}",
       max_tokens: 2000,
       n: 1,
       stop: ['\n\n']
