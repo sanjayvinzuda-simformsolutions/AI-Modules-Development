@@ -14,15 +14,19 @@ fetch_files.each do |file|
   next unless file_types.include?(File.extname(file))
   # Read the file contents
   code = File.read(file)
+  lines = code.lines.count
   # Analyze the code using the GPT-based AI tool
   issues = analyze_code(code)
+  pr_head_id = github.pr_json[:head][:sha]
+  repo_name = github.pr_json[:head][:repo][:full_name]
   if issues.any?
     file_link = github.html_link(file)
-    github.review.start
+    # github.review.start
     issues.each do |issue|
-      github.review.message("#{issue}", sticky: false, file: file_link, line: code.lines.count)
+      # github.review.message("#{issue}", sticky: false, file: file_link, line: code.lines.count)
+      github.api.create_pull_request_review(repo_name,7,{ commit_id: pr_head_id, body: issue, event: 'COMMENT', comments: [{ path: file, position: lines-1, body: issue}]})
     end
-    github.review.submit
+    # github.review.submit
   end
 end
 
