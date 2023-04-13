@@ -1,23 +1,28 @@
 require_relative 'lib/gpt_analysis.rb'
 
 # Define the file types to analyze
-file_types = ['rb', 'erb']
+file_types = ['.rb', '.erb']
 # Sometimes it's a README fix, or something like that - which isn't relevant for
 # including in a project's CHANGELOG for example
 declared_trivial = github.pr_title.include? "#trivial"
 
 files_to_check = (git.modified_files + git.added_files).uniq
 # Analyze each modified file
-files_to_check.each do |file|
+(files_to_check - %w[Dangerfile]).each do |file|
   # Only analyze files with specified file types
   next unless file_types.include?(File.extname(file))
   # Read the file contents
   code = File.read(file)
   # Analyze the code using the GPT-based AI tool
   issues = analyze_code(code)
-  # Display a warning message for any detected issues
-  puts "Potential issues detected by GPT-based AI model in #{file}:\n#{issues.join('\n')}"
-  message("Potential issues detected by GPT-based AI model in #{file}:\n#{issues.join('\n')}")
+  if issues.any?
+    github.review.start
+    message("Potential issues detected by GPT-based AI model in: #{file}\n")
+    issues.each do |issue|
+      message("#{issue}")
+    end
+    github.review.submit
+  end
 end
 
 # Make it more obvious that a PR is a work in progress and shouldn't be merged yet
