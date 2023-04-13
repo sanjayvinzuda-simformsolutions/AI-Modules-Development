@@ -1,0 +1,9 @@
+<%= form_tag generate_path, method: :post,local: true, data: { turbo: false } do %>
+  <%= text_area_tag :prompt, '', rows: 5 %>
+  <%= submit_tag 'Generate code' %>
+<% end %>
+
+<% if @code.present? %>
+  <h2>Generated code:</h2>
+  <%= @code %>
+<% end %>
