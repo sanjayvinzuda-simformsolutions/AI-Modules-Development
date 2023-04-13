@@ -18,6 +18,7 @@ files_to_check = (git.modified_files + git.added_files).uniq
   if issues.any?
     message("Potential issues detected by GPT-based AI model in: <b>#{file}\n</b>")
     issues.each do |issue|
+      next if issue.include?('N/A')
       message("#{issue}")
     end
   end
