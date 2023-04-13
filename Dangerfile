@@ -16,12 +16,10 @@ files_to_check = (git.modified_files + git.added_files).uniq
   # Analyze the code using the GPT-based AI tool
   issues = analyze_code(code)
   if issues.any?
-    github.review.start
-    message("Potential issues detected by GPT-based AI model in: #{file}\n")
+    message("Potential issues detected by GPT-based AI model in: <b>#{file}\n</b>")
     issues.each do |issue|
       message("#{issue}")
     end
-    github.review.submit
   end
 end
 
@@ -29,7 +27,7 @@ end
 warn "PR is classed as Work in Progress" if github.pr_title.include? "[WIP]"
 
 # Warn when there is a big PR
-warn("Big PR") if git.lines_of_code > 50
+warn("Big PR") if git.lines_of_code > 500
 
 # Don't let testing shortcuts get into master by accident
 fail("fdescribe left in tests") if `grep -r fdescribe specs/ `.length > 1
