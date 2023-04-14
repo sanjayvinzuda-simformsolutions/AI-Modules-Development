@@ -15,12 +15,13 @@ files_to_check = (git.modified_files + git.added_files).uniq
   code = File.read(file)
   # Analyze the code using the GPT-based AI tool
   issues = analyze_code(code)
-  if issues.any?
-    message("Potential issues detected by GPT-based AI model in: <b>#{file}\n</b>")
-    issues.each do |issue|
-      message("#{issue}")
-    end
+  next if issues.empty?
+
+  message("Review by GPT-based AI model in: <b>#{file}\n</b>")
+  issues.each do |issue|
+    message("#{issue}")
   end
+
 end
 
 # Make it more obvious that a PR is a work in progress and shouldn't be merged yet
