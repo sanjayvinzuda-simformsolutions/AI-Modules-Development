@@ -3,26 +3,31 @@ class CodeGeneratorController < ApplicationController
   def index; end
   
   def generate
-    prompt = params[:prompt]
-    @code = generate_code(prompt)
+    @code = params[:code]
+    @language = params[:language]
+    @generated_code = generate_code(@code,@language)
     render :index
   end
 
   private
 
-  def generate_code(prompt)
-
+  def generate_code(code, language)
+    prompt = get_prompt(code, language)
     openai = OpenAI::Client.new(access_token: Rails.application.credentials.dig(:openAI, :open_ai_api_key))
     response = openai.completions(
       parameters:{
         model: 'text-davinci-002',
         prompt: prompt,
         max_tokens: 128,
-        n: 1,
-        stop: ['\n']
+        best_of: 1,
+        top_p: 1,
     })
   
     # Extract the generated code from the response
-    generated_code = response.dig("choices", 0, "text")
+    response.dig("choices", 0, "text").split("\n")
+  end
+
+  def get_prompt(code,language)
+    "write function in #{language} code for #{code}"
   end
 end

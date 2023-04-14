@@ -1,9 +1,17 @@
-<%= form_tag generate_path, method: :post,local: true, data: { turbo: false } do %>
-  <%= text_area_tag :prompt, '', rows: 5 %>
-  <%= submit_tag 'Generate code' %>
+<%= form_with url: generate_path, method: :post,local: true, data: { turbo: false } do |f|%>
+  Write function in <%= f.select(:language, options_for_select(['Ruby', 'Java','javascript','python','C','C++'],selected: @language), {include_blank: 'Select Option'} , {class: 'form-control' }) %>
+  that
+  <%= f.text_field :code, value: params[:code], class: 'form-control' %>
+  <%= f.submit 'Generate code' %>
 <% end %>
 
-<% if @code.present? %>
+<% if @generated_code.present? %>
   <h2>Generated code:</h2>
-  <%= @code %>
+  <pre>
+    <code>
+      <% @generated_code.each do |t| %>
+        <%= t %>
+      <% end %>
+    </code>
+  </pre>   
 <% end %>
