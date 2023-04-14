@@ -21,9 +21,9 @@ end
 
 def analyze_code(code_snippet)
   # Pass the code snippet to the GPT-based AI model
-  prompt = "Analyse issues in code: \n #{code_snippet} with line number, if no issues present don't return nil"
+  prompt = "Analyse issues in code: \n #{code_snippet}, if no issue present add N/I in response"
   response = client_response(prompt)
   # Extract the list of potential issues from the response
   result = response.dig("choices", 0, "text").split("\n")
-  result.present? ? result.reject(&:blank?).map(&:strip) : []
+  result.present? ? result.reject(&:blank?).map(&:strip).reject{|i| i == "N/I"} : []
 end
