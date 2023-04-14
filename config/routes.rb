@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   post 'open_ai_code_analysis/generate_test_cases', to: 'open_ai_code_analysis#generate_test_cases', as: 'generate_test_cases'
   get 'test_cases', to: 'open_ai_code_analysis#test_cases', as: 'test_cases'
   get 'code_docs', to: 'code_doc_generators#index'
+  get 'code_doc_generators/generate', to: 'code_doc_generators#index'
   post 'code_doc_generators/generate', to: 'code_doc_generators#generate'
 end
