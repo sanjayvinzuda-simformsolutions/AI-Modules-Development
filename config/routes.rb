@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  root to: "emails#new"
+  resources :emails, only: %i[new create]
+  get "/show_response", to: "emails#show_response"
 end

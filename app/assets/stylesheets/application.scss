@@ -1,0 +1,20 @@
+// Graphical variables
+@import "config/fonts";
+@import "config/colors";
+@import "config/bootstrap_variables";
+
+// External libraries
+@import "font-awesome";
+
+// Your CSS partials
+@import "components/index";
+@import "pages/index";
+
+
+textarea::placeholder  {
+  color: gray !important;
+}
+
+.grey {
+ @extend textarea::placeholder;
+}

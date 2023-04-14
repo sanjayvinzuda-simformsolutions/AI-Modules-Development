@@ -74,3 +74,8 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+gem "simple_form"
+gem "font-awesome-sass", "~> 6.1"
+gem "sassc-rails"
+gem "webpacker"
+gem 'bootstrap', '~> 5.1.0'

@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "response" do %>
+    <div class="email_response" data-copy-to-clipboard-target="source">
+      <%= safe_join(@response.split("\n"), "<br />".html_safe) %>
+    </div>
+<% end %>
