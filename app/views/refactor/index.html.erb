@@ -1,0 +1,29 @@
+<div class='m-5'>
+  <%= form_with(url: refactor_index_path, remote: true, data: { turbo: false }, method: :post) do |f| %>
+    <div class="d-flex justify-content-center mt-2">
+      <h4>Add code for refacting:</h4>
+      <%= f.select(:language, options_for_select(['Ruby on Rails', 'Java'],  params[:language]), {include_blank: 'Select Option'}, {class: 'btn btn-primary-2 dropdown-toggle' }) %>
+    </div>
+
+    <div class='input-field g-2'>
+      <%= f.text_area :query, rows: 10, cols: 80, value: params[:query], required: true, class: 'form-control' %>
+    </div>
+    
+    <div class="d-flex justify-content-center mt-2">
+      <%= f.submit 'Click Me!' %>
+    </div>
+  <% end %>
+
+  <div id='result'></div>
+
+  <% if @response.present? %>
+    <h2>Refactor Code:</h2>
+    <pre>
+      <code>
+        <% @response.each do |t|%>
+          <%= t %>
+        <% end %>
+      </code>
+    </pre>
+  <% end %>
+</div>
