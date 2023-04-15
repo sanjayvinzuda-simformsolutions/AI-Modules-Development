@@ -1,14 +1,21 @@
-<%= form_with url: code_doc_generators_generate_path, method: :post, local: true, data: { turbo: false } do |f| %>
-  <div>
-    <label>Enter your code here :</label><br>
-    <%= f.text_area :code, rows: 20, cols: 80, value: params[:code], required: true %>
+<div class="d-flex justify-content-center align-items-center h-100">
+  <div class="container-fluid">
+    <div id="code-doc-input" class="col-lg-5 col-md-5 col-sm-12 mb-4 rounded-2 p-4">
+      <%= form_with url: code_doc_generators_generate_path, method: :post, local: true, data: { turbo: false } do |f| %>
+        <div class="form-group">
+          <%= f.text_area :code, rows: 20, cols: 80, value: params[:code], required: true, class: "form-control", placeholder: "To generate code documentation, enter or paste your code here ..." %>
+        </div>
+        <%= f.submit 'Generate', class: "btn btn-success btn-block" %>
+      <% end %>
+    </div>
+  <div class="col-sm-12 col-lg-1"></div>
+    <div id="code-doc-output" class="col-lg-6 col-md-6 col-sm-12 mb-4 rounded-2 p-4">
+      <% if @result.present? %>
+        <h2>Generated Code Documentation :</h2>
+        <% @result.each do |t|%>
+          <div><%= t %></div>
+        <% end %>
+      <% end %>
+    </div>
   </div>
-  <%= f.submit 'submit' %>
-<% end %>
-
-<% if @result.present? %>
-  <h2>Generated Code Documentation :</h2>
-  <% @result.each do |t|%>
-    <div><%= t %></div>
-  <% end %>
-<% end %>
+</div>

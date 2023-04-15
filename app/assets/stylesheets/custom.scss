@@ -1,3 +1,8 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
 .navbar {
   padding-top: 15px;
   padding-bottom: 15px;
@@ -10,4 +15,10 @@
 
 .navbar-nav li a:hover {
   color: #1abc9c !important;
+}
+
+#code-doc-input, #code-doc-output {
+  height: 52vh;
+  overflow: auto;
+  background-color: #f5f5f5;
 }
