@@ -19,11 +19,7 @@ rescue StandardError => e
   puts "Error occurred while analyzing code: #{e.message}"
 end
 
-def analyze_code(code_snippet)
-  # Pass the code snippet to the GPT-based AI model
-  prompt = "Analyze the following code for potential issues:\n#{code_snippet}"
+def analyze_code(prompt)
   response = client_response(prompt)
-  # Extract the list of potential issues from the response
-  result = response.dig("choices", 0, "text").split("\n")
-  result.present? ? result.reject(&:blank?).map(&:strip) : []
+  response.dig("choices", 0, "text").split("\n")
 end
