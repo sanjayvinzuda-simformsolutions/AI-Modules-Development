@@ -14,6 +14,13 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container-fluid">
+      <div class="row flex-nowrap">
+        <%= render 'layouts/shared/bootstrap_theme' %>
+        <div class="col py-3">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
