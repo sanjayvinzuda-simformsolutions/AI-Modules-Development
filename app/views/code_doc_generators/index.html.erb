@@ -3,19 +3,33 @@
     <div id="code-doc-input" class="col-lg-5 col-md-5 col-sm-12 mb-4 rounded-2 p-4">
       <%= form_with url: code_doc_generators_generate_path, method: :post, local: true, data: { turbo: false } do |f| %>
         <div class="form-group">
-          <%= f.text_area :code, rows: 20, cols: 80, value: params[:code], required: true, class: "form-control", placeholder: "To generate code documentation, enter or paste your code here ..." %>
+          <%= f.text_area :code, rows: 20, cols: 80, value: params[:code], required: true, class: "form-control", placeholder: "To generate code documentation, enter or paste your code here ...", id:"code-text-area" %>
         </div>
+        <p class="mb-0"><span id="word-counter">0</span> words</p>
         <%= f.submit 'Generate', class: "btn btn-success btn-block" %>
       <% end %>
     </div>
-  <div class="col-sm-12 col-lg-1"></div>
+    <div class="col-sm-12 col-lg-1"></div>
     <div id="code-doc-output" class="col-lg-6 col-md-6 col-sm-12 mb-4 rounded-2 p-4">
       <% if @result.present? %>
-        <h2>Generated Code Documentation :</h2>
-        <% @result.each do |t|%>
-          <div><%= t %></div>
+        <h2>Generated Code Documentation:</h2>
+        <% @result.each do |res|%>
+          <div><%= res %></div>
         <% end %>
+      <% else %>
+        <h2>No documentation generated yet.</h2>
       <% end %>
     </div>
   </div>
 </div>
+
+<script>
+  const wordCounter = document.getElementById("word-counter");
+  const codeTextarea = document.getElementById("code-text-area");
+
+  codeTextarea.addEventListener("input", function() {
+    const text = codeTextarea.value.trim();
+    const wordCount = text === "" ? 0 : text.split(/\s+/).length;
+    wordCounter.innerText = wordCount;
+  });
+</script>
