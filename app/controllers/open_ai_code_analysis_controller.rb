@@ -20,6 +20,17 @@ class OpenAiCodeAnalysisController < ApplicationController
     render :code_docs
   end
 
+  def code_generator; end
+
+  def generate_code
+    code = params[:code]
+    language = params[:language]
+    prompt = get_code_generator_prompt(code, language)
+    @generated_code = analyze_code(prompt)
+    render :code_generator
+  end
+
+
   private
 
   def get_test_cases_prompt(code, language)
@@ -28,5 +39,7 @@ class OpenAiCodeAnalysisController < ApplicationController
 
   def get_code_doc_prompt(code)
     "Generate the code documentation with markdown:\n #{code}"
+  def get_code_generator_prompt(code, language)
+    "write function in #{language} code for #{code}"
   end
 end
