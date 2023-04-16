@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
-  post 'open_ai_code_analysis/generate_test_cases', to: 'open_ai_code_analysis#generate_test_cases', as: 'generate_test_cases'
+  post 'test_cases', to: 'open_ai_code_analysis#generate_test_cases', as: 'generate_test_cases'
   get 'test_cases', to: 'open_ai_code_analysis#test_cases', as: 'test_cases'
   post 'code_generator', to: 'open_ai_code_analysis#generate_code', as: 'generate_code'
   get 'code_generator', to: 'open_ai_code_analysis#code_generator', as: 'code_generator'
