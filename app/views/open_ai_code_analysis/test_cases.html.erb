@@ -1,0 +1,25 @@
+<%= form_with url: generate_test_cases_path, method: :post, local: false, data: { turbo: false } do |f| %>
+  <div class="d-flex justify-content-center mt-2">
+    <h4> Write test cases for</h4>
+    <%= f.select(:language, options_for_select(['Ruby on Rails', 'Java', 'Python', 'Go'],  params[:language]), {include_blank: '--select language--'}, { class: 'btn btn-outline-default dropdown-toggle fs-3 text' }) %>
+  </div>
+  </br></br>
+  <div class='input-field g-2'>
+    <label class="form-label">Paste your code here</label>
+    <%= f.text_area :code, rows: 10, cols: 80, value: params[:code], required: true, class: 'form-control fs-4 text-light bg-dark'%>
+  </div>
+  <div class="d-flex justify-content-center mt-2">
+    <%= f.submit 'Generate Test Cases', class: "btn btn-lg btn-primary" %>
+  </div>
+<% end %>
+
+<% if @test_cases.present? %>
+  <h2>Generated Test Cases: </h2>
+  <pre>
+    <code>
+      <% @test_cases.each do |testcase|%>
+        <%= testcase %>
+      <% end %>
+    </code>
+  </pre>
+<% end %>
