@@ -11,15 +11,16 @@ files_to_check = (git.modified_files + git.added_files).uniq
 (files_to_check - %w[Dangerfile]).each do |file|
   # Only analyze files with specified file types
   next unless file_types.include?(File.extname(file))
-  # Read the file contents
-  code = File.read(file)
+  code = File.read(file) # Read the file contents
   # Analyze the code using the GPT-based AI tool
-  issues = analyze_code(code)
-  if issues.any?
-    message("Potential issues detected by GPT-based AI model in: <b>#{file}\n</b>")
-    issues.each do |issue|
-      message("#{issue}")
-    end
+  prompt = "Analyse issues in code: \n #{code}, if no issue present add N/I in response"
+  result = analyze_code(prompt)
+  issues = result.present? ? result.reject(&:blank?).map(&:strip).reject{|i| i == "N/I"} : []
+  next if issues.empty?
+
+  message("Review by GPT-based AI model in: <b>#{file}\n</b>")
+  issues.each do |issue|
+    message("#{issue}")
   end
 end
 
