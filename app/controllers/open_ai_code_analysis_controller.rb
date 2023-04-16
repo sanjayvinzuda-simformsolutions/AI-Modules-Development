@@ -39,6 +39,8 @@ class OpenAiCodeAnalysisController < ApplicationController
 
   def get_code_doc_prompt(code)
     "Generate the code documentation with markdown:\n #{code}"
+  end
+  
   def get_code_generator_prompt(code, language)
     "write function in #{language} code for #{code}"
   end
