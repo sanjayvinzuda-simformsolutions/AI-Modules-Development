@@ -8,14 +8,14 @@ class OpenAiCodeAnalysisController < ApplicationController
   def generate_test_cases
     code = params[:code]
     language = params[:language]
-    prompt = get_test_cases_prompt(code, language)
+    prompt = get_prompt('test_cases_generator', code, language)
     @response = analyze_code(prompt)
     render :test_cases
   end
 
   def generate_code_docs
     @code = params[:code]
-    prompt = get_code_doc_prompt(@code)
+    prompt = get_prompt('doc_generator', @code)
     @response = analyze_code(prompt)
     render :code_docs
   end
@@ -25,7 +25,7 @@ class OpenAiCodeAnalysisController < ApplicationController
   def generate_code
     code = params[:code]
     language = params[:language]
-    prompt = get_code_generator_prompt(code, language)
+    prompt = get_prompt('code_generator', code, language)
     @response = analyze_code(prompt)
     render :code_generator
   end
@@ -33,26 +33,23 @@ class OpenAiCodeAnalysisController < ApplicationController
   def code_refactor; end
 
   def generate_refactor_code
-    prompt = get_refactor_code_prompt(params[:code], params[:language])
+    prompt = get_prompt('code_refector', params[:code], params[:language])
     @response = analyze_code(prompt)
     render :code_refactor
   end
 
   private
-
-  def get_test_cases_prompt(code, language)
-    "Write unit tests in #{language} using it's most used framework. Here is the file:\n #{code}"
-  end
-
-  def get_code_doc_prompt(code)
-    "Generate the code documentation with markdown:\n #{code}"
-  end
   
-  def get_code_generator_prompt(code, language)
-    "write function in #{language} code for #{code}"
-  end
-
-  def get_refactor_code_prompt(code, language = 'Ruby on Rails')
-    "Refactor the following code in #{language} language:  #{code}"   
+  def get_prompt(type, code, language)
+    case type
+    when 'test_cases_generator'
+      "Write unit tests in #{language} using it's most used framework. Here is the file:\n #{code}"
+    when 'code_generator'
+      "write function in #{language} code for #{code}"
+    when 'code_refector'
+      "Refactor the following code in #{language} language: #{code}"
+    when 'doc_generator'
+      "Generate the code documentation with markdown:\n #{code}"
+    end
   end
 end

@@ -5,10 +5,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
-  #email template
-  resources :emails, only: %i[new create]
-  get "/show_response", to: "emails#show_response"
-  
   post 'test_cases', to: 'open_ai_code_analysis#generate_test_cases', as: 'generate_test_cases'
   get 'test_cases', to: 'open_ai_code_analysis#test_cases', as: 'test_cases'
   get 'generate_code_docs', to: 'open_ai_code_analysis#code_docs'
@@ -18,4 +14,9 @@ Rails.application.routes.draw do
 
   get 'code_refactor', to: 'open_ai_code_analysis#code_refactor', as: 'code_refactor'
   post 'code_refactor', to: 'open_ai_code_analysis#generate_refactor_code', as: 'generate_refactor_code'
+
+  match '/500' => 'errors#internal_server_error', :via => :all
+  #email template
+  resources :emails, only: %i[new create]
+  get "/show_response", to: "emails#show_response"
 end

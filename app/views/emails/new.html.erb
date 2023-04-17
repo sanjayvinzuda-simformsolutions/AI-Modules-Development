@@ -1,5 +1,5 @@
 <div class="container" style="max-width: 900px;">
-  <h2>Email Template Generator</h2>  
+  <h1> Generate Email Template </h1>  
 
   <%= turbo_frame_tag "email" do %>
     <%= simple_form_for @email, html: { class:"py-5" }, data: { turbo_frame: "response" }, remote: true do |f| %>
