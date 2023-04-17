@@ -23,4 +23,6 @@ def analyze_code(prompt)
   response = client_response(prompt)
   return if response.empty?
   response.dig("choices", 0, "text").split("\n")
+rescue Exception => error
+  render 'public/500.html'
 end
