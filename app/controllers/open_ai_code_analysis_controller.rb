@@ -15,7 +15,7 @@ class OpenAiCodeAnalysisController < ApplicationController
 
   def generate_code_docs
     @code = params[:code]
-    prompt = get_prompt('doc_generator', @code)
+    prompt = get_prompt('doc_generator', @code, nil)
     @response = analyze_code(prompt)
     render :code_docs
   end
@@ -43,13 +43,13 @@ class OpenAiCodeAnalysisController < ApplicationController
   def get_prompt(type, code, language)
     case type
     when 'test_cases_generator'
-      "Write unit tests in #{language} using it's most used framework. Here is the file:\n #{code}"
+      "Check if text is valid and Write unit tests in #{language} using it's most used framework. Here is the file:\n #{code}"
     when 'code_generator'
       "write function in #{language} code for #{code}"
     when 'code_refector'
       "Refactor the following code in #{language} language: #{code}"
     when 'doc_generator'
-      "Generate the code documentation with markdown:\n #{code}"
+      "Is input valid don't answer it and Generate the code documentation with markdown:\n #{code}"
     end
   end
 end
