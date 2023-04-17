@@ -5,7 +5,8 @@
     <%= simple_form_for @email, html: { class:"py-5" }, data: { turbo_frame: "response" }, remote: true do |f| %>
       <%= f.input :received, as: :text, label: "Received email", placeholder: "Paste the email you would like to respond to.", input_html: { class: 'form-control' } %>
       <%= f.input :description, as: :text, label: "I want the generated email to say, that ...", placeholder: "... I finished the tasks assigned to me.", input_html: { class: 'form-control' }  %>
-      <%= f.input :tonality, as: :radio_buttons, collection: ['business','business-casual','casual'], required: false  %>
+      <br />
+      <%= f.input :tonality, as: :radio_buttons, collection: ['business','business-casual','casual'], required: false, input_html: { class: 'mt-12' } %>
       <%= f.button :submit, class: "btn-primary" %>
     <% end %>
   <% end %>

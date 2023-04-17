@@ -10,7 +10,7 @@ class EmailsController < ApplicationController
   end
 
   def show_response
-    @response = params[:response]
+    @response = params[:response].sub(/\A\n+/, "")
   end
 
   private
