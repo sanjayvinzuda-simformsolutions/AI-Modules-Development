@@ -30,6 +30,13 @@ class OpenAiCodeAnalysisController < ApplicationController
     render :code_generator
   end
 
+  def code_refactor; end
+
+  def generate_refactor_code
+    prompt = get_refactor_code_prompt(params[:code], params[:language])
+    @response = analyze_code(prompt)
+    render :code_refactor
+  end
 
   private
 
@@ -43,5 +50,9 @@ class OpenAiCodeAnalysisController < ApplicationController
   
   def get_code_generator_prompt(code, language)
     "write function in #{language} code for #{code}"
+  end
+
+  def get_refactor_code_prompt(code, language = 'Ruby on Rails')
+    "Refactor the following code in #{language} language:  #{code}"   
   end
 end

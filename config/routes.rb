@@ -10,4 +10,7 @@ Rails.application.routes.draw do
   post 'generate_code_docs', to: 'open_ai_code_analysis#generate_code_docs'
   post 'code_generator', to: 'open_ai_code_analysis#generate_code', as: 'generate_code'
   get 'code_generator', to: 'open_ai_code_analysis#code_generator', as: 'code_generator'
+
+  get 'code_refactor', to: 'open_ai_code_analysis#code_refactor', as: 'code_refactor'
+  post 'code_refactor', to: 'open_ai_code_analysis#generate_refactor_code', as: 'generate_refactor_code'
 end
