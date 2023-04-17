@@ -1,25 +1,17 @@
 <%= form_with url: generate_code_path, method: :post, local: false, data: { turbo: false } do |f| %>
   <div class="d-flex justify-content-center mt-2">
-    <h4> Generate Code for </h4>
-    <%= f.select(:language, options_for_select(['Ruby on Rails', 'Java', 'Python', 'Go', 'Java', 'C', 'C++'],  params[:language]), {include_blank: '--select language--'}, { class: 'btn btn-outline-default dropdown-toggle fs-3 text' }) %>
+    <h4> Generate Code </h4>
+  </div>
+  <div class="d-flex justify-content-center mt-2">
+    <%= f.select(:language, options_for_select(collection_of_languages,  params[:language]), {include_blank: 'Select Language'}, { class: 'btn btn-outline-default dropdown-toggle fs-3 text' }) %>
   </div>
   </br></br>
   <div class='input-field g-2'>
-    <label class="form-label">Paste your code here</label>
-    <%= f.text_area :code, rows: 10, cols: 80, value: params[:code], required: true, class: 'form-control fs-4 text-light bg-dark'%>
+    <label class="form-label">Paste your Query here</label>
+    <%= f.text_area :code, rows: 10, cols: 80, value: params[:code], required: true, class: 'form-control fs-4 text-light bg-dark', placeholder: "To generate code, enter or paste your query here ..."%>
   </div>
   <div class="d-flex justify-content-center mt-2">
-    <%= f.submit 'Generate Code', class: "btn btn-lg btn-primary" %>
+    <%= f.submit 'Generate', class: "btn btn-lg btn-primary" %>
   </div>
 <% end %>
-
-<% if @generated_code.present? %>
-  <h2>Generated Code: </h2>
-  <pre>
-    <code>
-      <% @generated_code.each do |generatedcode|%>
-        <%= generatedcode %>
-      <% end %>
-    </code>
-  </pre>
-<% end %>
+<%= render 'response' %>
