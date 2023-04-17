@@ -1,24 +1,21 @@
-# README
+# Email Generator App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Ruby on Rails application that generates email responses based on the OpenAI API. It allows users to generate a new email based on context they provide or generate a response to an email they received. Additionally, users can select different tonalities for the email.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+- Generate emails based on the context provided or received email
+- Select different tonalities for the email
+- Uses OpenAI API to generate email
 
-* System dependencies
+## Technologies
+This app was developed using Test-Driven Development principles.
 
-* Configuration
+- Ruby on Rails
+- OpenAI API
 
-* Database creation
+## Requirements
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ - Ruby 3.2.0
+ - Rails 7.0.4
+ - PostgreSQL

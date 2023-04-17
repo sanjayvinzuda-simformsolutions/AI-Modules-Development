@@ -1,0 +1,20 @@
+<div class="container" style="max-width: 900px;">
+  <h2>Email Template Generator</h2>  
+
+  <%= turbo_frame_tag "email" do %>
+    <%= simple_form_for @email, html: { class:"py-5" }, data: { turbo_frame: "response" }, remote: true do |f| %>
+      <%= f.input :received, as: :text, label: "Received email", placeholder: "Paste the email you would like to respond to.", input_html: { class: 'form-control' } %>
+      <%= f.input :description, as: :text, label: "I want the generated email to say, that ...", placeholder: "... I finished the tasks assigned to me.", input_html: { class: 'form-control' }  %>
+      <br />
+      <%= f.input :tonality, as: :radio_buttons, collection: ['business','business-casual','casual'], required: false, input_html: { class: 'mt-12' } %>
+      <%= f.button :submit, class: "btn-primary" %>
+    <% end %>
+  <% end %>
+
+  <div class="border p-3" style="min-height: 200px" data-controller="copy-to-clipboard">
+    <button data-action="copy-to-clipboard#copy" class="border fa-solid fa-copy bt p-1" style="float: right; color: grey;"></button>
+    <%= turbo_frame_tag "response" do %>
+      <p class="grey">Your generated response will appear here.</p>
+    <% end %>
+  </div>
+</div>
