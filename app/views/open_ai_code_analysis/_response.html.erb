@@ -1,0 +1,30 @@
+<% if @response.present? %>
+  <h2>Generated Result: </h2>
+  <div style="position: relative;">
+    <button class="btn btn-primary clipboard-btn" style="position: absolute; top: 5px; right: 5px;" onclick="copyToClipboard('#code-doc', '#copy-message')">Copy</button>
+    <pre>
+      <code id='code-doc'>
+        <% @response.each do |response|%>
+          <%= response %>
+        <% end %>
+      </code>
+    </pre>
+    <div id="copy-message" style="display: none; position: absolute; top: 5px; right: 100px;">Copied!</div>
+  </div>
+<% end %>
+<script>
+  function copyToClipboard(selector, messageSelector) {
+    var code = document.querySelector(selector);
+    var range = document.createRange();
+    range.selectNode(code);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();
+    var message = document.querySelector(messageSelector);
+    message.style.display = "block";
+    setTimeout(function() {
+      message.style.display = "none";
+    }, 2000);
+  }
+</script>
