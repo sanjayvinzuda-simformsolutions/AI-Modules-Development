@@ -1,6 +1,6 @@
 <%= form_with url: generate_test_cases_path, method: :post, local: false, data: { turbo: false } do |f| %>
   <div class="d-flex justify-content-center mt-2">
-    <h4> Write test cases for</h4>
+    <h4> Generate Test Cases </h4>
     <%= f.select(:language, options_for_select(['Ruby on Rails', 'Java', 'Python', 'Go'],  params[:language]), {include_blank: '--select language--'}, { class: 'btn btn-outline-default dropdown-toggle fs-3 text' }) %>
   </div>
   </br></br>
