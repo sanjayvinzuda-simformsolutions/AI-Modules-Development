@@ -1,8 +1,7 @@
 <%= form_with url: generate_code_docs_path, method: :post, local: true, data: { turbo: false } do |f| %>
   <div class="d-flex justify-content-center mt-2">
-    <h4> Generate Code Documentation</h4>
+    <h1> Generate Code Documentation</h1>
   </div>
-  </br></br>
   <div class='input-field g-2'>
     <%= f.text_area :code, rows: 20, cols: 80, value: params[:code], required: true, class: 'form-control fs-4 text-light bg-dark', placeholder: "To generate code documentation, enter or paste your code here ...", id:"code-text-area" %>
   </div>

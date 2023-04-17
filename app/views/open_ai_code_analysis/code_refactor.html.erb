@@ -1,14 +1,12 @@
 <%= form_with(url: generate_refactor_code_path, remote: true, data: { turbo: false }, method: :post) do |f| %>
   <div class="d-flex justify-content-center mt-2">
-    <h4>Add code for refacting:</h4>
+    <h1>Code Refactor</h1>
   </div>
   <div class="d-flex justify-content-center mt-2">
     <%= f.select(:language, options_for_select(collection_of_languages,  params[:language]), {include_blank: 'Select Language'}, {class: 'btn btn-outline-default dropdown-toggle fs-3 text'}) %>
   </div>
-  </br></br>
   <div class='input-field g-2'>
-    <label class="form-label">Paste your code here</label>
-    <%= f.text_area :code, rows: 10, cols: 80, value: params[:code], required: true, class: 'form-control fs-4 text-light bg-dark', placeholder: "To generate code, enter or paste your query here ..." %>
+    <%= f.text_area :code, rows: 10, cols: 80, value: params[:code], required: true, class: 'form-control fs-4 text-light bg-dark', placeholder: "Write or paste code to refactor..." %>
   </div>
 
   <div class="d-flex justify-content-center mt-2">
