@@ -1,12 +1,30 @@
-# Email Generator App
+## Requirements
 
-This is a Ruby on Rails application that generates email responses based on the OpenAI API. It allows users to generate a new email based on context they provide or generate a response to an email they received. Additionally, users can select different tonalities for the email.
+ - Ruby 3.2.0
+ - Rails 7.0.4
+ - PostgreSQL
+
+
+## for AI usage
+
+- Add in rails credentials
+- openAI:
+        open_ai_api_key: ""
+or
+- environment variable
+ -OPENAI_API_KEY =
+
+2. For Danger setup follow steps link
+https://github.com/purvak-simform/DemoDangerTool#readme
 
 ## Features
 
-- Generate emails based on the context provided or received email
-- Select different tonalities for the email
-- Uses OpenAI API to generate email
+- Email Generation
+- Code Refectoring
+- Code Generation
+- Test Case generation
+- Document generation
+- Danger tool
 
 ## Technologies
 This app was developed using Test-Driven Development principles.
@@ -14,8 +32,3 @@ This app was developed using Test-Driven Development principles.
 - Ruby on Rails
 - OpenAI API
 
-## Requirements
-
- - Ruby 3.2.0
- - Rails 7.0.4
- - PostgreSQL
